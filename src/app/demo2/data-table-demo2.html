@@ -1,0 +1,56 @@
+<div style="margin: auto; max-width: 600px;">
+  <div>
+    <span>Highlight after: </span>
+    <input type="number" [(ngModel)]="yearLimit" class="form-control input-sm" style="display: inline-block; width: 100px">
+  </div>
+  <data-table
+    [items]="cars"
+    [itemCount]="carCount"
+    (reload)="reloadCars($event)"
+
+    [pagination]="false"
+    [indexColumn]="false"
+    [selectColumn]="true"
+    [multiSelect]="true"
+    [rowColors]="rowColors"
+    >
+    <data-table-column
+      property="year"
+      header="Year"
+      sortable="true">
+      <ng-template #dataTableCell let-item="item">
+        <input type="number" [(ngModel)]="item.year" class="form-control input-sm" style="width: 75px"/>
+      </ng-template>
+    </data-table-column>
+    <data-table-column
+      property="maker"
+      header="Maker">
+    </data-table-column>
+    <data-table-column
+      property="model"
+      header="Model">
+    </data-table-column>
+    <data-table-column
+      property="price"
+      header="Price ($)">
+    </data-table-column>
+    <data-table-column
+      header="Actions">
+      <ng-template #dataTableHeader let-item="item">
+        <i>Actions</i>
+      </ng-template>
+      <ng-template #dataTableCell let-item="item">
+        <button (click)="carClicked(item)" class="btn btn-sm btn-default">Buy</button>
+      </ng-template>
+    </data-table-column>
+  </data-table>
+  <div>
+    <div>
+        <b>Selected:</b>
+        <span [textContent]="carsTable.selectedRows.length"></span>
+    </div>
+    <div *ngFor="let selected of carsTable.selectedRows">
+        <span [textContent]="selected.item.model"></span>
+    </div>
+  </div>
+</div>
